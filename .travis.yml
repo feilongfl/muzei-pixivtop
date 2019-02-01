@@ -1,0 +1,30 @@
+language: android
+android:
+  components:
+  - tools
+  - platform-tools
+  - build-tools-27.0.3
+  - android-27
+  - add-on
+  - extra
+licenses:
+- android-sdk-license-.+
+before_install:
+- yes | sdkmanager "platforms;android-28"
+jdk:
+- oraclejdk8
+before_script:
+- chmod +x gradlew
+script:
+- "./gradlew assembleRelease"
+deploy:
+  provider: releases
+  api_key: ${githubtoken}
+  file: "muzei-pixiv/build/outputs/apk/release/muzei-pixiv-release.apk"
+  skip_cleanup: true
+  on:
+    repo: feilongfl/muzei-pixivtop
+    branch:
+      - master
+      - test-ci
+    tags: true
