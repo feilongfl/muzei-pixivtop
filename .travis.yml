@@ -23,7 +23,7 @@ deploy:
   file: "muzei-pixiv/build/outputs/apk/release/muzei-pixiv.apk"
   skip_cleanup: true
   on:
-    repo: feilongfl/Cimoc
+    repo: feilongfl/muzei-pixivtop
     branch:
       - master
       - test-ci
