@@ -36,7 +36,7 @@ android {
         minSdkVersion 19
         targetSdkVersion rootProject.ext.targetSdkVersion
 
-        def unsplashAuthorityValue = "com.example.muzei.exampleunsplash"
+        def unsplashAuthorityValue = "com.muzei.feilong.pixiv"
         manifestPlaceholders = [unsplashAuthority: unsplashAuthorityValue]
         buildConfigField "String", "PIXIV_TOP", "\"${unsplashAuthorityValue}\""
     }

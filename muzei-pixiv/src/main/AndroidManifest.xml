@@ -17,7 +17,7 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.muzei.unsplash">
+    package="com.muzei.feilong.pixivtop">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -28,7 +28,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <service
-            android:name="com.example.muzei.unsplash.PixivArtSource"
+            android:name="com.muzei.feilong.pixivtop.PixivArtSource"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.apps.muzei.api.MuzeiArtSource"/>
@@ -39,7 +39,7 @@
         </service>
 
         <provider
-            android:name="com.example.muzei.unsplash.PixivArtProvider"
+            android:name="com.muzei.feilong.pixivtop.PixivArtProvider"
             android:authorities="${unsplashAuthority}"
             android:label="@string/name"
             android:description="@string/description"
