@@ -23,21 +23,34 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 internal interface PixivService {
 
     companion object {
+        fun getDaysAgo(daysAgo: Int): Date {
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.DAY_OF_YEAR, -daysAgo)
+            return calendar.time
+        }
 
         private fun createService(): PixivService {
             val okHttpClient = OkHttpClient.Builder()
                     .addInterceptor { chain ->
                         var request = chain.request()
+                        val dateYesterday = SimpleDateFormat("yyyy-MM-dd").format(getDaysAgo(3))
                         val url = request.url().newBuilder()
-//                                .addQueryParameter("client_id", CONSUMER_KEY)
+                                .addQueryParameter("page", (0).toString())
+                                .addQueryParameter("date", dateYesterday)
                                 .build()
                         request = request.newBuilder().url(url)
-                                .addHeader("Referer","https://pixivic.com").build()
+                                .addHeader("Referer", "https://pixivic.com").build()
                         chain.proceed(request)
                     }
                     .build()
@@ -63,7 +76,8 @@ internal interface PixivService {
         }
     }
 
-    @get:GET("d?page=0&date=2019-01-29")
+    //    val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
+    @get:GET("d")
     val popularPhotos: Call<List<Photo>>
 
     @GET("{url}")
