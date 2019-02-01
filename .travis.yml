@@ -20,7 +20,7 @@ script:
 deploy:
   provider: releases
   api_key: ${githubtoken}
-  file: "muzei-pixiv/build/outputs/apk/release/muzei-pixiv-release.apk"
+  file: "muzei-pixiv/build/outputs/apk/release/muzei-pixiv.apk"
   skip_cleanup: true
   on:
     repo: feilongfl/Cimoc

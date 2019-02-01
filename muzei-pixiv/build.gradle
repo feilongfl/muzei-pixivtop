@@ -17,6 +17,12 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
+def cmd = 'git rev-list HEAD --count'
+def gitVersion = cmd.execute().text.trim().toInteger()
+
+cmd = 'git describe --tags'
+def version = cmd.execute().text.trim()
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "androidx.core:core-ktx:$coreVersion"
@@ -34,10 +40,34 @@ android {
 
     defaultConfig {
         minSdkVersion 19
+        versionCode gitVersion
+        versionName version + "(" + gitVersion + ")"
         targetSdkVersion rootProject.ext.targetSdkVersion
 
         def unsplashAuthorityValue = "com.muzei.feilong.pixiv"
         manifestPlaceholders = [unsplashAuthority: unsplashAuthorityValue]
         buildConfigField "String", "PIXIV_TOP", "\"${unsplashAuthorityValue}\""
+    }
+    signingConfigs {
+        release {
+            storeFile file("muzei-pixivtop.jks")
+            storePassword System.getenv("KEYSTORE_PASS")
+            keyAlias System.getenv("ALIAS_NAME")
+            keyPassword System.getenv("ALIAS_PASS")
+        }
+    }
+    buildTypes {
+        release {
+//            minifyEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            shrinkResources true
+//            zipAlignEnabled true
+            signingConfig signingConfigs.release
+        }
+        android.applicationVariants.all { variant ->
+            variant.outputs.all {
+                outputFileName = "muzei-pixiv.apk"
+            }
+        }
     }
 }
