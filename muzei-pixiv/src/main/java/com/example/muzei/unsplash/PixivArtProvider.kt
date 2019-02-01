@@ -25,7 +25,7 @@ import com.google.android.apps.muzei.api.provider.MuzeiArtProvider
 import java.io.IOException
 import java.io.InputStream
 
-class UnsplashExampleArtProvider : MuzeiArtProvider() {
+class PixivArtProvider : MuzeiArtProvider() {
 
     companion object {
         private const val TAG = "UnsplashExample"
@@ -35,7 +35,7 @@ class UnsplashExampleArtProvider : MuzeiArtProvider() {
     }
 
     override fun onLoadRequested(initial: Boolean) {
-        UnsplashExampleWorker.enqueueLoad()
+        PixivWorker.enqueueLoad()
     }
 
     override fun getCommands(artwork: Artwork) = context?.run {
@@ -65,7 +65,7 @@ class UnsplashExampleArtProvider : MuzeiArtProvider() {
         return super.openFile(artwork).also {
             artwork.token?.run {
                 try {
-                    UnsplashService.trackDownload(this)
+                    PixivService.trackDownload(this)
                 } catch (e: IOException) {
                     Log.w(TAG, "Error reporting download to Unsplash", e)
                 }

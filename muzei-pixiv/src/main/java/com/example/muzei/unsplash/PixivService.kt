@@ -26,11 +26,11 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import java.io.IOException
 
-internal interface UnsplashService {
+internal interface PixivService {
 
     companion object {
 
-        private fun createService() : UnsplashService {
+        private fun createService() : PixivService {
             val okHttpClient = OkHttpClient.Builder()
                     .addInterceptor { chain ->
                         var request = chain.request()
@@ -51,7 +51,7 @@ internal interface UnsplashService {
         }
 
         @Throws(IOException::class)
-        internal fun popularPhotos(): List<UnsplashService.Photo> {
+        internal fun popularPhotos(): List<PixivService.Photo> {
             return createService().popularPhotos.execute().body()
                     ?: throw IOException("Response was null")
         }

@@ -30,17 +30,17 @@ import com.google.android.apps.muzei.api.provider.Artwork
 import com.google.android.apps.muzei.api.provider.ProviderContract
 import java.io.IOException
 
-class UnsplashExampleWorker(
+class PixivWorker(
         context: Context,
         workerParams: WorkerParameters
 ) : Worker(context, workerParams) {
 
     companion object {
-        private const val TAG = "UnsplashExample"
+        private const val TAG = "Pixiv"
 
         internal fun enqueueLoad() {
             val workManager = WorkManager.getInstance()
-            workManager.enqueue(OneTimeWorkRequestBuilder<UnsplashExampleWorker>()
+            workManager.enqueue(OneTimeWorkRequestBuilder<PixivWorker>()
                     .setConstraints(Constraints.Builder()
                             .setRequiredNetworkType(NetworkType.CONNECTED)
                             .build())
@@ -50,9 +50,9 @@ class UnsplashExampleWorker(
 
     override fun doWork(): Result {
         val photos = try {
-            UnsplashService.popularPhotos()
+            PixivService.popularPhotos()
         } catch (e: IOException) {
-            Log.w(TAG, "Error reading Unsplash response", e)
+            Log.w(TAG, "Error reading Pixiv response", e)
             return Result.retry()
         }
 

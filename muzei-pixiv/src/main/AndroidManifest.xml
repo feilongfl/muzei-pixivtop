@@ -28,7 +28,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <service
-            android:name="com.example.muzei.unsplash.UnsplashExampleArtSource"
+            android:name="com.example.muzei.unsplash.PixivArtSource"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.apps.muzei.api.MuzeiArtSource"/>
@@ -39,7 +39,7 @@
         </service>
 
         <provider
-            android:name="com.example.muzei.unsplash.UnsplashExampleArtProvider"
+            android:name="com.example.muzei.unsplash.PixivArtProvider"
             android:authorities="${unsplashAuthority}"
             android:label="@string/name"
             android:description="@string/description"
