@@ -9,6 +9,10 @@
 ## screenshots
 ![](./docs/screenshots_1.jpg)
 
+origin picture info:
+pixiv id: [72933538](https://www.pixiv.net/member_illust.php?mode=medium&illust_id=72933538)
+author: [Bison倉鼠](https://www.pixiv.net/member.php?id=333556)
+
 ## known bugs
 > Due to interface issues, the following issues are temporarily unresolved:
 1. A load failure image will appear.
