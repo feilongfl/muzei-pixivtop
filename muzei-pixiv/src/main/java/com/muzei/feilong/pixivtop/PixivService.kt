@@ -44,7 +44,7 @@ internal interface PixivService {
             val okHttpClient = OkHttpClient.Builder()
                     .addInterceptor { chain ->
                         var request = chain.request()
-                        val dateYesterday = SimpleDateFormat("yyyy-MM-dd").format(getDaysAgo(3))
+                        val dateYesterday = SimpleDateFormat("yyyy-MM-dd").format(getDaysAgo(4))
                         val url = request.url().newBuilder()
                                 .addQueryParameter("page", (0).toString())
                                 .addQueryParameter("date", dateYesterday)
