@@ -1,5 +1,6 @@
 # Pixiv plugin for Muzei
 ![travis-ci](https://travis-ci.org/feilongfl/muzei-pixivtop.svg?branch=master)
+[![codebeat badge](https://codebeat.co/badges/4cf47608-7087-43de-8e5d-c3154c78f23e)](https://codebeat.co/projects/github-com-feilongfl-muzei-pixivtop-master)
 [![GitHub release](https://img.shields.io/github/release/feilongfl/muzei-pixivtop.svg)](https://github.com/feilongfl/muzei-pixivtop)
 ![downloads number](https://img.shields.io/github/downloads/feilongfl/muzei-pixivtop/total.svg)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffeilongfl%2Fmuzei-pixivtop.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Ffeilongfl%2Fmuzei-pixivtop?ref=badge_shield)
