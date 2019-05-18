@@ -51,7 +51,7 @@ class PixivArtProvider : MuzeiArtProvider() {
         when (id) {
             COMMAND_ID_VIEW_PROFILE -> {
                 val profile = context.getString(R.string.unsplash_link) + artwork.metadata
-                context.startActivity(Intent(Intent.ACTION_VIEW, profile?.toUri()))
+                context.startActivity(Intent(Intent.ACTION_VIEW, profile.toUri()))
             }
             COMMAND_ID_VISIT_PIXIV -> {
                 context.startActivity(Intent(Intent.ACTION_VIEW, artwork.webUri))
