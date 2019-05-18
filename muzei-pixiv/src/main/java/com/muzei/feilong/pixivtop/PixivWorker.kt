@@ -19,15 +19,10 @@ package com.muzei.feilong.pixivtop
 import android.content.Context
 import android.util.Log
 import androidx.core.net.toUri
-import androidx.work.Constraints
-import androidx.work.NetworkType
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
-import androidx.work.Worker
-import androidx.work.WorkerParameters
-import com.muzei.feilong.pixivtop.BuildConfig.PIXIV_TOP
+import androidx.work.*
 import com.google.android.apps.muzei.api.provider.Artwork
 import com.google.android.apps.muzei.api.provider.ProviderContract
+import com.muzei.feilong.pixivtop.BuildConfig.PIXIV_TOP
 import java.io.IOException
 
 class PixivWorker(
@@ -49,30 +44,30 @@ class PixivWorker(
     }
 
     override fun doWork(): Result {
-        val photos = try {
+        val photo = try {
             PixivService.popularPhotos()
         } catch (e: IOException) {
             Log.w(TAG, "Error reading Pixiv response", e)
             return Result.retry()
         }
 
-        if (photos.isEmpty()) {
-            Log.w(TAG, "No photos returned from API.")
+        if (photo.message != "拉取成功") {
+            Log.w(TAG, photo.message)
             return Result.failure()
         }
 
         val providerClient = ProviderContract.getProviderClient(
                 applicationContext, PIXIV_TOP)
         val attributionString = applicationContext.getString(R.string.attribution)
-        providerClient.addArtwork(photos.map { photo ->
+        providerClient.addArtwork(photo.`data`.illustrations.map { i ->
             Artwork().apply {
-                token = photo.id
-                title = photo.title ?: attributionString
-                byline = photo.artistname
-                attribution = if (photo.title != null) attributionString else null
-                persistentUri = photo.url.toUri()
-                webUri = photo.url.toUri()
-                metadata = photo.url
+                token = i.id
+                title = i.title
+                byline = i.user.name
+                attribution = attributionString
+                persistentUri = if (i.meta_pages.isEmpty()) i.meta_single_page.large_image_url?.toUri() else i.meta_pages.first().image_urls.large.toUri()
+                metadata = "/member.php?id=${i.user.id}"
+                webUri = "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=$token".toUri()
             }
         })
         return Result.success()

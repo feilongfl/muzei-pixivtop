@@ -16,6 +16,7 @@
 
 package com.muzei.feilong.pixivtop
 
+import android.util.Log
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -23,18 +24,14 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 import java.io.IOException
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 internal interface PixivService {
 
     companion object {
-        fun getDaysAgo(daysAgo: Int): Date {
+        private fun getDaysAgo(daysAgo: Int): Date {
             val calendar = Calendar.getInstance()
             calendar.add(Calendar.DAY_OF_YEAR, -daysAgo)
             return calendar.time
@@ -48,6 +45,7 @@ internal interface PixivService {
                         val url = request.url().newBuilder()
                                 .addQueryParameter("page", (0).toString())
                                 .addQueryParameter("date", dateYesterday)
+                                .addQueryParameter("mode", "day")
                                 .build()
                         request = request.newBuilder().url(url)
                                 .addHeader("Referer", "https://pixivic.com").build()
@@ -65,7 +63,7 @@ internal interface PixivService {
         }
 
         @Throws(IOException::class)
-        internal fun popularPhotos(): List<PixivService.Photo> {
+        internal fun popularPhotos(): Photo {
             return createService().popularPhotos.execute().body()
                     ?: throw IOException("Response was null")
         }
@@ -76,30 +74,10 @@ internal interface PixivService {
         }
     }
 
-    //    val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
-    @get:GET("d")
-    val popularPhotos: Call<List<Photo>>
+    @get:GET("ranks")
+    val popularPhotos: Call<Photo>
 
     @GET("{url}")
     fun trackDownload(@Path("url") photoURL: String): Call<Any>
 
-    data class Photo(
-            val id: String,
-            val url: String,
-            val title: String?,
-            val artistname: String,
-            val date: String,
-            val height: Int,
-            val width: Int
-    )
-
-//    data class Urls(val full: String)
-
-//    data class Links(val html: String) {
-//        val webUri get() = "$html$ATTRIBUTION_QUERY_PARAMETERS".toUri()
-//    }
-
-//    data class User(
-//            val name: String,
-//            val links: Links)
 }
