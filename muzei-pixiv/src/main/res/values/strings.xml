@@ -21,5 +21,5 @@
     <string name="attribution">Illustration on Pixiv</string>
     <string name="action_view_profile">View %s\'s profile</string>
     <string name="action_visit_unsplash">Visit on Pixiv</string>
-    <string name="unsplash_link">https://www.pixiv.net</string>
+    <string name="unsplash_link">https://www.pixiv.net/</string>
 </resources>
