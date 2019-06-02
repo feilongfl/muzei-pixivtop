@@ -35,7 +35,7 @@ buildscript {
         materialVersion = '1.1.0-alpha06'
         multidexVersion = '2.0.1'
         navigationVersion = '2.1.0-alpha03'
-        okhttpVersion = '4.0.0-alpha01'
+        okhttpVersion = '3.12.0'
         pagingVersion = '2.1.0'
         playServicesWearableVersion = '16.0.1'
         recyclerViewVersion = '1.1.0-alpha05'
