@@ -66,7 +66,7 @@ class PixivWorker(
                 byline = i.user.name
                 attribution = attributionString
                 persistentUri = if (i.meta_pages.isEmpty()) i.meta_single_page.large_image_url?.toUri() else i.meta_pages.first().image_urls.large.toUri()
-                metadata = "/member.php?id=${i.user.id}"
+                metadata = "member.php?id=${i.user.id}"
                 webUri = "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=$token".toUri()
             }
         })
